@@ -9,22 +9,27 @@ import java.util.List;
 public class SMSDBServiceImpl implements SMSDBService {
 
     private final Context applicationContext;
+    private final SmsDatabase db;
 
     public SMSDBServiceImpl(Context applicationContext) {
         this.applicationContext = applicationContext;
+        db = Room.databaseBuilder(applicationContext,
+                SmsDatabase.class, "sms_db").build();
     }
 
     @Override
     public void insertNew(List<Sms> smss) {
-        SmsDatabase db = Room.databaseBuilder(applicationContext,
-                SmsDatabase.class, "database-name").build();
-
         List<Sms> filtered = new ArrayList<>();
         for (Sms sms : smss) {
-            if (!sms.wasRead()) {
+            if (!sms.is_sendToEmail()) {
                 filtered.add(sms);
             }
         }
         db.smsDAO().insert(filtered);
+    }
+
+    @Override
+    public List<Sms> getUnsend() {
+        return db.smsDAO().getAllNotSyncronizedSms();
     }
 }

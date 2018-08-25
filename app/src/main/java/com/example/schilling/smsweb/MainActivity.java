@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     public List<Sms> getAllSms() {
         List<Sms> lstSms = new ArrayList<Sms>();
-        Sms objSms = new Sms();
+        Sms objSms = new Sms("");
         Uri message = Uri.parse("content://sms/");
         ContentResolver cr = this.getContentResolver();
 
@@ -38,17 +38,17 @@ public class MainActivity extends AppCompatActivity {
         if (c.moveToFirst()) {
             for (int i = 0; i < totalSMS; i++) {
 
-                objSms = new Sms();
-                objSms.setId(c.getString(c.getColumnIndexOrThrow("_id")));
-                objSms.setAddress(c.getString(c
+                objSms = new Sms("");
+                objSms.set_id(c.getString(c.getColumnIndexOrThrow("_id")));
+                objSms.set_address(c.getString(c
                         .getColumnIndexOrThrow("address")));
-                objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
-                objSms.setReadState(c.getString(c.getColumnIndex("read")));
-                objSms.setTime(c.getString(c.getColumnIndexOrThrow("date")));
+                objSms.set_msg(c.getString(c.getColumnIndexOrThrow("body")));
+                objSms.set_read(c.getString(c.getColumnIndex("read")));
+                objSms.set_time(c.getString(c.getColumnIndexOrThrow("date")));
                 if (c.getString(c.getColumnIndexOrThrow("type")).contains("1")) {
-                    objSms.setFolderName("inbox");
+                    objSms.set_folderName("inbox");
                 } else {
-                    objSms.setFolderName("sent");
+                    objSms.set_folderName("sent");
                 }
 
                 lstSms.add(objSms);

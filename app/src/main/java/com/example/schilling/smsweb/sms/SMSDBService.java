@@ -6,4 +6,6 @@ public interface SMSDBService {
 
     void insertNew(List<Sms> smss);
 
+    List<Sms> getUnsend();
+
 }

@@ -2,60 +2,146 @@ package com.example.schilling.smsweb.sms;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity
 public class Sms{
 
+    @NonNull
     @PrimaryKey
     private String _id;
     private String _address;
     private String _msg;
-    private String _readState; //"0" for have not read sms and "1" for have read sms
     private String _time;
     private String _folderName;
-    private boolean _read;
+    private String _read;
+    private boolean _sendToEmail;
 
-    public String getId(){
+    @NonNull
+    public String get_id() {
         return _id;
     }
-    public String getAddress(){
+
+    public void set_id(@NonNull String _id) {
+        this._id = _id;
+    }
+
+    public String get_address() {
         return _address;
     }
-    public String getMsg(){
+
+    public void set_address(String _address) {
+        this._address = _address;
+    }
+
+    public String get_msg() {
         return _msg;
     }
-    public String getReadState(){
-        return _readState;
+
+    public void set_msg(String _msg) {
+        this._msg = _msg;
     }
-    public String getTime(){
+
+    public String get_time() {
         return _time;
     }
-    public String getFolderName(){
+
+    public void set_time(String _time) {
+        this._time = _time;
+    }
+
+    public String get_folderName() {
         return _folderName;
     }
-    public boolean wasRead() {
+
+    public void set_folderName(String _folderName) {
+        this._folderName = _folderName;
+    }
+
+    public void set_read(String _read) {
+        this._read = _read;
+    }
+
+    public String get_read() {
         return _read;
     }
 
-    public void setId(String id){
-        _id = id;
+    public Sms(String id){
+        this._id = id;
+        _sendToEmail = false;
     }
-    public void setAddress(String address){
-        _address = address;
+
+    public boolean is_sendToEmail() {
+        return _sendToEmail;
     }
-    public void setMsg(String msg){
-        _msg = msg;
+
+    public void set_sendToEmail(boolean _sendToEmail) {
+        this._sendToEmail = _sendToEmail;
     }
-    public void setReadState(String readState){
-        _readState = readState;
-    }
-    public void setTime(String time){
-        _time = time;
-    }
-    public void setFolderName(String folderName){
-        _folderName = folderName;
-    }
-    public void set_read(boolean _read) {
-        this._read = _read;
+
+    public static class Builder{
+        private String id;
+        private String address;
+        private String msg;
+        private String time;
+        private String folderName;
+        private String stored;
+        private boolean sendToEmail;
+
+        public Builder(String _msg) {
+            id = "a";
+            msg = _msg;
+            time = "26.09.1996";
+            stored = "0";
+            folderName = "no";
+            sendToEmail = false;
+        }
+
+        public Sms built() {
+            Sms sms = new Sms(id);
+            sms._address = address;
+            sms._folderName = folderName;
+            sms._msg = msg;
+            sms._read = stored;
+            sms._time = time;
+            sms._sendToEmail = sendToEmail;
+            return sms;
+        }
+
+        public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder address(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder sendToEmail(boolean send) {
+            this.sendToEmail = send;
+            return this;
+        }
+
+        public Builder msg(String msg) {
+            this.msg = msg;
+            return this;
+        }
+
+        public Builder time(String time) {
+            this.time = time;
+            return this;
+        }
+
+        public Builder folderName(String folderName) {
+            this.folderName = folderName;
+            return this;
+        }
+
+        public Builder stored(String stored) {
+            this.stored = stored;
+            return this;
+        }
+
     }
 }
