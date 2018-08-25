@@ -4,7 +4,6 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import com.example.schilling.smsweb.sms.Sms;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SMSDBServiceImpl implements SMSDBService {
@@ -20,17 +19,13 @@ public class SMSDBServiceImpl implements SMSDBService {
 
     @Override
     public void insertNew(List<Sms> smss) {
-        List<Sms> filtered = new ArrayList<>();
-        for (Sms sms : smss) {
-            if (!sms.is_sendToEmail()) {
-                filtered.add(sms);
-            }
-        }
-        db.smsDAO().insert(filtered);
+        db.smsDAO().insert(smss);
     }
 
     @Override
     public List<Sms> getUnsent() {
         return db.smsDAO().getNotSyncronizedSms();
     }
+
+
 }

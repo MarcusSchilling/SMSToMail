@@ -9,6 +9,8 @@ import android.provider.Telephony;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import com.example.schilling.smsweb.sms.Sms;
+import com.example.schilling.smsweb.sms.database.SMSDBService;
+import com.example.schilling.smsweb.sms.database.SMSDBServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 import static com.example.schilling.smsweb.sms.Constants.SMS_INTENT_EXTRA_FLAG;
 
 public class SMSBroadcastReceiver extends BroadcastReceiver{
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -34,6 +37,10 @@ public class SMSBroadcastReceiver extends BroadcastReceiver{
         for (SmsMessage msg : msgs) {
             messages.add(new Sms.Builder(msg).built());
         }
+
+        SMSDBService smsdbService = new SMSDBServiceImpl(context);
+        smsdbService.insertNew(messages);
+
         Log.d("MESSAGE: ",messages.get(0).get_msg());
     }
 

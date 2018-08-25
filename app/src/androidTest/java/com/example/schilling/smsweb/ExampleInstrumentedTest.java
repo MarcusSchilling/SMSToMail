@@ -4,15 +4,18 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import com.example.schilling.smsweb.sms.database.SMSDBServiceImpl;
 import com.example.schilling.smsweb.sms.Sms;
+import com.example.schilling.smsweb.sms.database.SMSDBServiceImpl;
 import com.example.schilling.smsweb.sms.database.SmsDatabase;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,6 +30,8 @@ public class ExampleInstrumentedTest {
     private SMSDBServiceImpl smsdbService;
     private SmsDatabase sms_db;
 
+    private List<Sms> savedSms = new ArrayList<>();
+
     @Before
     public void useAppContext() {
         // Context of the app under test.
@@ -38,12 +43,15 @@ public class ExampleInstrumentedTest {
 
         //set up sms database ...
         smsdbService = new SMSDBServiceImpl(appContext);
+        savedSms.clear();
     }
 
     @Test
     public void saveSmsTest() {
         Sms.Builder smsBuilder = new Sms.Builder("Hallo 1");
         Sms first = smsBuilder.id("1").built();
+        savedSms.add(first);
+
         smsdbService.insertNew(Arrays.asList(first));
 
         Assert.assertEquals(1, sms_db.smsDAO().getAllSms().size());
@@ -54,8 +62,11 @@ public class ExampleInstrumentedTest {
     @Test
     public void getAllUnsent() {
         Sms.Builder smsBuilder = new Sms.Builder("Hallos ");
-        Sms unsent = smsBuilder.id("1").built();
-        Sms send = smsBuilder.id("2").built();
+        Sms unsent = smsBuilder.id("1").sendToEmail(false).built();
+        Sms send = smsBuilder.id("2").sendToEmail(true).built();
+        savedSms.add(unsent);
+        savedSms.add(send);
+
 
         smsdbService.insertNew(Arrays.asList(send, unsent));
         Assert.assertEquals(1, smsdbService.getUnsent().size());
@@ -71,6 +82,13 @@ public class ExampleInstrumentedTest {
     }
 
 
+    @After
+    public void after() {
+        for (Sms sms : savedSms) {
+            sms_db.smsDAO().deleteAll(sms);
+        }
+
+    }
 
 
 }

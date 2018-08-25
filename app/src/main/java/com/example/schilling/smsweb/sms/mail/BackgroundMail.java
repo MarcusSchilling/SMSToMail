@@ -12,6 +12,7 @@ public class BackgroundMail implements BackgroundMailService{
         this.app = app;
     }
 
+    //TODO send email at marcus@5-schillinge.de + Send from SMS Broadcast Receiver + save SMS
     @Override
     public void sendEmail(Sms sms, String targetAddress) {
 
