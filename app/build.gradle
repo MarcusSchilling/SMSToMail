@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.schilling.smsweb"
-        minSdkVersion 24
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -47,9 +47,9 @@ dependencies {
     //     Support library depends on this lightweight import
     implementation "android.arch.lifecycle:runtime:$lifecycle_version"
 
-    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version" // use kapt for Kotlin
+//    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version" // use kapt for Kotlin
     // alternately - if using Java8, use the following instead of compiler
-    implementation "android.arch.lifecycle:common-java8:$lifecycle_version"
+  //  implementation "android.arch.lifecycle:common-java8:$lifecycle_version"
 
     // optional - ReactiveStreams support for LiveData
     implementation "android.arch.lifecycle:reactivestreams:$lifecycle_version"

@@ -4,9 +4,9 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import com.example.schilling.smsweb.sms.SMSDBServiceImpl;
+import com.example.schilling.smsweb.sms.database.SMSDBServiceImpl;
 import com.example.schilling.smsweb.sms.Sms;
-import com.example.schilling.smsweb.sms.SmsDatabase;
+import com.example.schilling.smsweb.sms.database.SmsDatabase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,14 +58,14 @@ public class ExampleInstrumentedTest {
         Sms send = smsBuilder.id("2").built();
 
         smsdbService.insertNew(Arrays.asList(send, unsent));
-        Assert.assertEquals(1, smsdbService.getUnsend().size());
+        Assert.assertEquals(1, smsdbService.getUnsent().size());
 
         sms_db.smsDAO().deleteAll(unsent);
-        Assert.assertEquals(0, sms_db.smsDAO().getAllNotSyncronizedSms().size());
+        Assert.assertEquals(0, sms_db.smsDAO().getNotSyncronizedSms().size());
         Assert.assertEquals(1, sms_db.smsDAO().getAllSms().size());
 
         sms_db.smsDAO().deleteAll(send);
-        Assert.assertEquals(0, sms_db.smsDAO().getAllNotSyncronizedSms().size());
+        Assert.assertEquals(0, sms_db.smsDAO().getNotSyncronizedSms().size());
         Assert.assertEquals(0, sms_db.smsDAO().getAllSms().size());
 
     }

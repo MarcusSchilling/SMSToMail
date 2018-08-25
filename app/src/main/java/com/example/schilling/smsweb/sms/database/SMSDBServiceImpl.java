@@ -1,7 +1,8 @@
-package com.example.schilling.smsweb.sms;
+package com.example.schilling.smsweb.sms.database;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import com.example.schilling.smsweb.sms.Sms;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class SMSDBServiceImpl implements SMSDBService {
     }
 
     @Override
-    public List<Sms> getUnsend() {
-        return db.smsDAO().getAllNotSyncronizedSms();
+    public List<Sms> getUnsent() {
+        return db.smsDAO().getNotSyncronizedSms();
     }
 }

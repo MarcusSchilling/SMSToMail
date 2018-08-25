@@ -3,6 +3,7 @@ package com.example.schilling.smsweb.sms;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+import android.telephony.SmsMessage;
 
 @Entity
 public class Sms{
@@ -85,16 +86,32 @@ public class Sms{
         private String msg;
         private String time;
         private String folderName;
-        private String stored;
+        private String read;
         private boolean sendToEmail;
 
         public Builder(String _msg) {
             id = "a";
             msg = _msg;
             time = "26.09.1996";
-            stored = "0";
+            read = "0";
             folderName = "no";
             sendToEmail = false;
+        }
+
+        /**
+         * constructor for SmsMessage @{@link SmsMessage}
+         * @param msg which should be converted to @{@link Sms}
+         */
+        public Builder(SmsMessage msg) {
+            this(msg.getMessageBody());
+            this.address(msg.getOriginatingAddress())
+                    .folderName("inbox")
+                    .sendToEmail(false)
+                    .id(msg.getIndexOnIcc() + "")
+                    .time(msg.getTimestampMillis() + "")
+                    .read("0")
+                    .built();
+            return;
         }
 
         public Sms built() {
@@ -102,7 +119,7 @@ public class Sms{
             sms._address = address;
             sms._folderName = folderName;
             sms._msg = msg;
-            sms._read = stored;
+            sms._read = read;
             sms._time = time;
             sms._sendToEmail = sendToEmail;
             return sms;
@@ -138,8 +155,8 @@ public class Sms{
             return this;
         }
 
-        public Builder stored(String stored) {
-            this.stored = stored;
+        public Builder read(String read) {
+            this.read = read;
             return this;
         }
 

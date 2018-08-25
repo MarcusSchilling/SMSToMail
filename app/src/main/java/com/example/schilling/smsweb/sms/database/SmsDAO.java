@@ -1,9 +1,10 @@
-package com.example.schilling.smsweb.sms;
+package com.example.schilling.smsweb.sms.database;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import com.example.schilling.smsweb.sms.Sms;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface SmsDAO {
     List<Sms> getAllSms();
 
     @Query("Select * from Sms where _sendToEmail is 0")
-    List<Sms> getAllNotSyncronizedSms();
+    List<Sms> getNotSyncronizedSms();
 
     @Insert
     void insert(List<Sms> smss);
