@@ -1,7 +1,7 @@
 # SMSToMail
 This Application is for synchronizing your sms's with your mail account.
 
-##Requirements
+## Requirements
 - Android 4.4+ required
-- root of phone required
+- rooted phone required
 
