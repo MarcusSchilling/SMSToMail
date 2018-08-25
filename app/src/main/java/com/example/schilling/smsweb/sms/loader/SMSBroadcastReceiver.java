@@ -7,11 +7,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
-import android.util.Log;
 import com.example.schilling.smsweb.sms.Sms;
-import com.example.schilling.smsweb.sms.database.SMSDBService;
 import com.example.schilling.smsweb.sms.database.SMSDBServiceImpl;
+import com.example.schilling.smsweb.sms.mail.BackgroundMail;
 
+import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +38,18 @@ public class SMSBroadcastReceiver extends BroadcastReceiver{
             messages.add(new Sms.Builder(msg).built());
         }
 
-        SMSDBService smsdbService = new SMSDBServiceImpl(context);
-        smsdbService.insertNew(messages);
+        BackgroundMail backgroundMail = new BackgroundMail(context);
+        for (Sms message : messages) {
+            try{
+                backgroundMail.sendEmail(message);
+            } catch (MessagingException e) {
+                break;
+            }
+            message.set_sendToEmail(true);
+        }
 
-        Log.d("MESSAGE: ",messages.get(0).get_msg());
+        SMSDBServiceImpl smsDBService = SMSDBServiceImpl.getSingleton(context);
+        smsDBService.insertNew(messages);
     }
 
 }

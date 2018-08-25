@@ -11,10 +11,21 @@ public class SMSDBServiceImpl implements SMSDBService {
     private final Context applicationContext;
     private final SmsDatabase db;
 
-    public SMSDBServiceImpl(Context applicationContext) {
+    private SMSDBServiceImpl(Context applicationContext) {
         this.applicationContext = applicationContext;
         db = Room.databaseBuilder(applicationContext,
                 SmsDatabase.class, "sms_db").build();
+    }
+
+    private static SMSDBServiceImpl singleton;
+
+    public static SMSDBServiceImpl getSingleton(Context applicationContext) {
+        if (singleton == null) {
+            singleton = new SMSDBServiceImpl(applicationContext);
+            return singleton;
+        }else {
+            return singleton;
+        }
     }
 
     @Override

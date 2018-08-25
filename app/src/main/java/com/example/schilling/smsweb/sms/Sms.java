@@ -92,7 +92,7 @@ public class Sms{
         public Builder(String _msg) {
             id = "a";
             msg = _msg;
-            time = "26.09.1996";
+            time = "3.3.2000";
             read = "0";
             folderName = "no";
             sendToEmail = false;
