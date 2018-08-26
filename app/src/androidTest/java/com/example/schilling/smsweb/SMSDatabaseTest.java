@@ -25,7 +25,8 @@ import static org.junit.Assert.assertEquals;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class SMSDatabaseTest {
+
     Context appContext;
     private SMSDBServiceImpl smsdbService;
     private SmsDatabase sms_db;
@@ -42,7 +43,8 @@ public class ExampleInstrumentedTest {
                 SmsDatabase.class, "sms_db").build();
 
         //set up sms database ...
-        smsdbService = new SMSDBServiceImpl(appContext);
+        smsdbService = SMSDBServiceImpl.getSingleton(appContext);
+        after();
         savedSms.clear();
     }
 

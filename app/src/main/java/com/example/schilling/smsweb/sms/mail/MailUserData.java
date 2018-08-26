@@ -16,23 +16,23 @@ public class MailUserData {
     private final String smtpHost;
     private final short port;
 
-    private final String passwort;
+    private final String password;
 
-    public MailUserData(String smtpHost, short port, String username, String passwort) {
+    public MailUserData(String smtpHost, short port, String username, String password) {
         this.smtpHost = smtpHost;
         this.port = port;
         this.username = username;
-        this.passwort = passwort;
+        this.password = password;
     }
 
     public Properties getProperties() {
         Properties props = new Properties();
         props.setProperty("mail.smtp.starttls.enable" , "true");
-        props.setProperty("mail.smtp.host", "smtp.1und1.de"); // smtp.1und1.de
+        props.setProperty("mail.smtp.host", smtpHost); // smtp.1und1.de
         props.setProperty("mail.smtp.auth", "true"); // true
-        props.setProperty("mail.smtp.port", "587"); // 587
+        props.setProperty("mail.smtp.port", port + ""); // 587
         props.setProperty("mail.smtp.user", username);
-        props.setProperty("mail.smtp.password", passwort);
+        props.setProperty("mail.smtp.password", password);
         return props;
     }
 
@@ -42,6 +42,25 @@ public class MailUserData {
     }
 
     public String getPassword() {
-        return passwort;
+        return password;
+    }
+
+    public String getSmtpHost() {
+        return smtpHost;
+    }
+
+    public short getPort() {
+        return port;
+    }
+
+
+    @Override
+    public String toString() {
+        return "MailUserData{" +
+                "username='" + username + '\'' +
+                ", smtpHost='" + smtpHost + '\'' +
+                ", port=" + port +
+                ", passwort='" + password + '\'' +
+                '}';
     }
 }

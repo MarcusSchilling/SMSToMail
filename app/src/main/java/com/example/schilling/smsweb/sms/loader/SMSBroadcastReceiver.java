@@ -33,6 +33,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver{
                 msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
             }
         }
+
         List<Sms> messages = new ArrayList<>();
         for (SmsMessage msg : msgs) {
             messages.add(new Sms.Builder(msg).built());

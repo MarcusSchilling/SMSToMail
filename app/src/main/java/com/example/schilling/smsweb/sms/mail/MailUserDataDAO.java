@@ -8,7 +8,7 @@ import android.arch.persistence.room.Query;
 @Dao
 public interface MailUserDataDAO {
 
-    @Query("Select * from MailUserData")
+    @Query("Select * from MailUserData Limit 1")
     MailUserData getAllMailUserData();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
