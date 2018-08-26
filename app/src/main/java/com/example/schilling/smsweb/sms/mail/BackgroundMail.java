@@ -19,10 +19,20 @@ public class BackgroundMail implements BackgroundMailService{
                 MailUserDatabase.class, "sms_db").build();
     }
 
+    /**
+     * Sends SMS to MAIL. Does nothing if there are no user data stored.
+     * @param sms which should be send
+     * @throws MessagingException false message or failed to send
+     */
     @Override
     public void sendEmail(Sms sms) throws MessagingException {
-
         final MailUserData mailUserData = db.mailUserDataDAO().getAllMailUserData();
+
+        //do nothing if there is no profile of the user
+        if (mailUserData == null) {
+            return;
+        }
+
         Properties props = mailUserData.getProperties();
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             @Override
@@ -41,8 +51,6 @@ public class BackgroundMail implements BackgroundMailService{
                 + "\n\n"+ sms.get_msg());
 
         Transport.send(message);
-
-
     }
 
 }

@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity{
         password = findViewById(R.id.password);
         smtpHost = findViewById(R.id.host);
         port = findViewById(R.id.port);
-        new Thread(load).start();
+        new Thread(loadUserData).start();
     }
 
-    Runnable load = new Runnable() {
+    Runnable loadUserData = new Runnable() {
         @Override
         public void run() {
             MailUserDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity{
 
 
     public void saveMailUserData(View view) {
-        new Thread(runnable).start();
+        new Thread(saveUserData).start();
     }
 
-    Runnable runnable = new Runnable() {
+    Runnable saveUserData = new Runnable() {
         @Override
         public void run() {
             MailUserDatabase db = Room.databaseBuilder(getApplicationContext(),
