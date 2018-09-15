@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -40,7 +41,8 @@ public class SMSDatabaseTest {
 
         assertEquals("com.example.schilling.smsweb", appContext.getPackageName());
         sms_db = Room.databaseBuilder(appContext,
-                SmsDatabase.class, "sms_db").build();
+                SmsDatabase.class, "sms_db")
+                .fallbackToDestructiveMigration().build();
 
         //set up sms database ...
         smsdbService = SMSDBServiceImpl.getSingleton(appContext);
@@ -54,7 +56,7 @@ public class SMSDatabaseTest {
         Sms first = smsBuilder.id("1").built();
         savedSms.add(first);
 
-        smsdbService.insertNew(Arrays.asList(first));
+        smsdbService.insertNew(Collections.singletonList(first));
 
         Assert.assertEquals(1, sms_db.smsDAO().getAllSms().size());
         sms_db.smsDAO().deleteAll(first);

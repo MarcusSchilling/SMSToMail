@@ -17,8 +17,11 @@ import java.util.List;
 
 import static com.example.schilling.smsweb.sms.Constants.SMS_INTENT_EXTRA_FLAG;
 
-public class SMSBroadcastReceiver extends BroadcastReceiver{
+public class SMSBroadcastReceiver extends BroadcastReceiver implements Runnable{
 
+
+    private List<Sms> messages = new ArrayList<>();
+    private Context context;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -34,23 +37,31 @@ public class SMSBroadcastReceiver extends BroadcastReceiver{
             }
         }
 
-        List<Sms> messages = new ArrayList<>();
         for (SmsMessage msg : msgs) {
             messages.add(new Sms.Builder(msg).built());
         }
+        this.context = context;
 
+        Thread thread = new Thread(this);
+        thread.start();
+    }
+
+    @Override
+    public void run() {
         BackgroundMail backgroundMail = new BackgroundMail(context);
+        List<Sms> smsWhichCouldntBeSendToMail = new ArrayList<>();
         for (Sms message : messages) {
             try{
                 backgroundMail.sendEmail(message);
+                message.set_sendToEmail(true);
             } catch (MessagingException e) {
-                break;
+                smsWhichCouldntBeSendToMail.add(message);
+                message.set_sendToEmail(false);
             }
-            message.set_sendToEmail(true);
         }
 
         SMSDBServiceImpl smsDBService = SMSDBServiceImpl.getSingleton(context);
-        smsDBService.insertNew(messages);
+        smsDBService.insertNew(smsWhichCouldntBeSendToMail);
     }
 
 }

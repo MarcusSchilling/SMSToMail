@@ -6,15 +6,17 @@ import com.example.schilling.smsweb.sms.Sms;
 
 import java.util.List;
 
+import static com.example.schilling.smsweb.sms.Sms.MIGRATION_1_2;
+
 public class SMSDBServiceImpl implements SMSDBService {
 
-    private final Context applicationContext;
     private final SmsDatabase db;
 
     private SMSDBServiceImpl(Context applicationContext) {
-        this.applicationContext = applicationContext;
         db = Room.databaseBuilder(applicationContext,
-                SmsDatabase.class, "sms_db").build();
+                SmsDatabase.class, "sms_db")
+                .addMigrations(MIGRATION_1_2)
+                .build();
     }
 
     private static SMSDBServiceImpl singleton;

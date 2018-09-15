@@ -16,7 +16,9 @@ public class BackgroundMail implements BackgroundMailService{
 
     public BackgroundMail(Context appContext) {
         this.db = Room.databaseBuilder(appContext,
-                MailUserDatabase.class, "sms_db").build();
+                MailUserDatabase.class, "mail_user_db")
+                .fallbackToDestructiveMigration()
+                .build();
     }
 
     /**
@@ -46,9 +48,11 @@ public class BackgroundMail implements BackgroundMailService{
         message.setFrom(new InternetAddress(mailUserData.getUsername()));
         message.setRecipients(Message.RecipientType.TO,
                 InternetAddress.parse(mailUserData.getUsername()));
-        message.setSubject("SMS: " + sms.get_address());
-        message.setText("Message : "
-                + "\n\n"+ sms.get_msg());
+        String mailSubject = "SMS: " + sms.get_address();
+        message.setSubject(mailSubject);
+        String mailBody = "Message : "
+                + "\n\n" + sms.get_msg();
+        message.setText(mailBody);
 
         Transport.send(message);
     }

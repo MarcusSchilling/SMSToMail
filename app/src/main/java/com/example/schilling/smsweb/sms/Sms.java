@@ -1,7 +1,9 @@
 package com.example.schilling.smsweb.sms;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.migration.Migration;
 import android.support.annotation.NonNull;
 import android.telephony.SmsMessage;
 
@@ -79,6 +81,14 @@ public class Sms{
     public void set_sendToEmail(boolean _sendToEmail) {
         this._sendToEmail = _sendToEmail;
     }
+
+    public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+
+        }
+    };
+
 
     public static class Builder{
         private String id;
