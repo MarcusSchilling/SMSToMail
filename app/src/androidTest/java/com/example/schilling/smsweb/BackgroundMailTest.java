@@ -20,7 +20,7 @@ public class BackgroundMailTest {
 
     @Before
     public void useAppContext() {
-        // Context of the app under test.
+        // Context of the app under test conditions.
         appContext = InstrumentationRegistry.getTargetContext();
         backgroundMail = new BackgroundMail(appContext);
     }
@@ -28,7 +28,13 @@ public class BackgroundMailTest {
     @Test
     public void test() {
         try {
-            backgroundMail.sendEmail(new Sms.Builder("Hallo").built());
+            backgroundMail.sendEmail(new Sms.Builder("Hallo")
+                    .id(1)
+                    .sendToEmail(true)
+                    .time("20.2.2018")
+                    .read("")
+                    .folderName("no")
+                    .built());
         } catch (MessagingException e) {
             throw new AssertionError("Couldn't send the mail");
         }

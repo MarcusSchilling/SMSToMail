@@ -10,22 +10,22 @@ import android.telephony.SmsMessage;
 @Entity
 public class Sms{
 
-    @NonNull
-    @PrimaryKey
-    private String _id;
+
+    @PrimaryKey(autoGenerate = true)
+    private long _id;
     private String _address;
     private String _msg;
     private String _time;
     private String _folderName;
     private String _read;
-    private boolean _sendToEmail;
+    private boolean _alreadySendToEmail;
 
     @NonNull
-    public String get_id() {
+    public long get_id() {
         return _id;
     }
 
-    public void set_id(@NonNull String _id) {
+    public void set_id(@NonNull long _id) {
         this._id = _id;
     }
 
@@ -69,20 +69,26 @@ public class Sms{
         return _read;
     }
 
-    public Sms(String id){
+    public boolean is_alreadySendToEmail() {
+        return _alreadySendToEmail;
+    }
+
+    public void set_alreadySendToEmail(boolean _alreadySendToEmail) {
+        this._alreadySendToEmail = _alreadySendToEmail;
+    }
+
+    public Sms(long id){
         this._id = id;
-        _sendToEmail = false;
+        _alreadySendToEmail = false;
     }
 
-    public boolean is_sendToEmail() {
-        return _sendToEmail;
-    }
+    public static final Migration EMPTY_MIGRATION = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
 
-    public void set_sendToEmail(boolean _sendToEmail) {
-        this._sendToEmail = _sendToEmail;
-    }
-
-    public static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        }
+    };
+    public static final Migration EMPTY_MIGRATION_2 = new Migration(2, 3) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
 
@@ -91,21 +97,21 @@ public class Sms{
 
 
     public static class Builder{
-        private String id;
+        private long id;
         private String address;
         private String msg;
         private String time;
         private String folderName;
         private String read;
-        private boolean sendToEmail;
+        private boolean alreadySendToEmail;
 
         public Builder(String _msg) {
-            id = "a";
+            id = 0;
             msg = _msg;
             time = "3.3.2000";
             read = "0";
             folderName = "no";
-            sendToEmail = false;
+            alreadySendToEmail = false;
         }
 
         /**
@@ -117,7 +123,7 @@ public class Sms{
             this.address(msg.getOriginatingAddress())
                     .folderName("inbox")
                     .sendToEmail(false)
-                    .id(msg.getIndexOnIcc() + "")
+                    .id(msg.getIndexOnIcc())
                     .time(msg.getTimestampMillis() + "")
                     .read("0")
                     .built();
@@ -131,11 +137,11 @@ public class Sms{
             sms._msg = msg;
             sms._read = read;
             sms._time = time;
-            sms._sendToEmail = sendToEmail;
+            sms._alreadySendToEmail = alreadySendToEmail;
             return sms;
         }
 
-        public Builder id(String id) {
+        public Builder id(long id) {
             this.id = id;
             return this;
         }
@@ -146,7 +152,7 @@ public class Sms{
         }
 
         public Builder sendToEmail(boolean send) {
-            this.sendToEmail = send;
+            this.alreadySendToEmail = send;
             return this;
         }
 

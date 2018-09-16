@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity{
                 username.setText(allMailUserData.getUsername());
                 port.setText(String.format("%s", allMailUserData.getPort()));
                 smtpHost.setText(allMailUserData.getSmtpHost());
+                password.setText(allMailUserData.getPassword());
             }
         }
     };

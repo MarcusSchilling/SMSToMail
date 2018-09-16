@@ -1,9 +1,6 @@
 package com.example.schilling.smsweb.sms.database;
 
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.Query;
+import android.arch.persistence.room.*;
 import com.example.schilling.smsweb.sms.Sms;
 
 import java.util.List;
@@ -18,12 +15,15 @@ public interface SmsDAO {
     @Query("Select * from Sms")
     List<Sms> getAllSms();
 
-    @Query("Select * from Sms where _sendToEmail is 0")
-    List<Sms> getNotSyncronizedSms();
-
-    @Insert
-    void insert(List<Sms> smss);
+    @Query("Select * from Sms where _alreadySendToEmail is 0")
+    List<Sms> getNotSynchronizedSms();
 
     @Delete
-    void deleteAll(Sms sms);
+    void deleteSmss(List<Sms> smss);
+
+    @Insert
+    List<Long> insert(List<Sms> smss);
+
+    @Query("Delete from Sms")
+    void deleteAll();
 }
