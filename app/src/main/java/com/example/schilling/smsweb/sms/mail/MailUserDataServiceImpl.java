@@ -1,6 +1,5 @@
 package com.example.schilling.smsweb.sms.mail;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
@@ -33,7 +32,7 @@ public class MailUserDataServiceImpl implements MailUserDataService{
 
     @Override
     public MailUserData getMailUserData() {
-        final LiveData<MailUserData> mailUserData = db.mailUserDataDAO().getAllMailUserData();
-        return mailUserData.getValue();
+        MailUserData mailUserData = db.mailUserDataDAO().getAllMailUserData();
+        return mailUserData;
     }
 }

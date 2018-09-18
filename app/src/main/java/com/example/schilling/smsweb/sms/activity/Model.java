@@ -1,9 +1,9 @@
 package com.example.schilling.smsweb.sms.activity;
 
 import android.content.Context;
-import com.example.schilling.smsweb.sms.Sms;
-import com.example.schilling.smsweb.sms.database.SMSDBService;
-import com.example.schilling.smsweb.sms.database.SMSDBServiceImpl;
+import com.example.schilling.smsweb.sms.sms.Sms;
+import com.example.schilling.smsweb.sms.sms.SMSDBService;
+import com.example.schilling.smsweb.sms.sms.SMSDBServiceImpl;
 import com.example.schilling.smsweb.sms.mail.*;
 
 import javax.mail.MessagingException;

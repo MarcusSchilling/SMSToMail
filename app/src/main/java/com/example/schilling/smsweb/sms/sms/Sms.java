@@ -1,4 +1,4 @@
-package com.example.schilling.smsweb.sms;
+package com.example.schilling.smsweb.sms.sms;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Entity;

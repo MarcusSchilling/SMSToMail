@@ -1,8 +1,7 @@
-package com.example.schilling.smsweb.sms.database;
+package com.example.schilling.smsweb.sms.sms;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
-import com.example.schilling.smsweb.sms.Sms;
 
 /**
  * Created by schilling on 24.08.18.

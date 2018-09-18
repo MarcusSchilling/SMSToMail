@@ -1,6 +1,6 @@
 package com.example.schilling.smsweb.sms.mail;
 
-import com.example.schilling.smsweb.sms.Sms;
+import com.example.schilling.smsweb.sms.sms.Sms;
 
 import javax.mail.MessagingException;
 

@@ -1,4 +1,4 @@
-package com.example.schilling.smsweb.sms.loader;
+package com.example.schilling.smsweb.sms.sms;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import com.example.schilling.smsweb.sms.Sms;
-import com.example.schilling.smsweb.sms.database.SMSDBServiceImpl;
 import com.example.schilling.smsweb.sms.mail.BackgroundMail;
 import com.example.schilling.smsweb.sms.mail.MailDataNotFoundException;
 

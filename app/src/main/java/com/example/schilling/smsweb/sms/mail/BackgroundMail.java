@@ -2,7 +2,7 @@ package com.example.schilling.smsweb.sms.mail;
 
 import android.content.Context;
 import android.util.Log;
-import com.example.schilling.smsweb.sms.Sms;
+import com.example.schilling.smsweb.sms.sms.Sms;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

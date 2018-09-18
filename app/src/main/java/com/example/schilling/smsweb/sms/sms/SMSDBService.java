@@ -1,6 +1,4 @@
-package com.example.schilling.smsweb.sms.database;
-
-import com.example.schilling.smsweb.sms.Sms;
+package com.example.schilling.smsweb.sms.sms;
 
 import java.util.List;
 

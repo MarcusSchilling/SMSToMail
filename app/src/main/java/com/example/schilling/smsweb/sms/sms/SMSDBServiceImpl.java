@@ -1,13 +1,12 @@
-package com.example.schilling.smsweb.sms.database;
+package com.example.schilling.smsweb.sms.sms;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import com.example.schilling.smsweb.sms.Sms;
 
 import java.util.List;
 
-import static com.example.schilling.smsweb.sms.Sms.EMPTY_MIGRATION;
-import static com.example.schilling.smsweb.sms.Sms.EMPTY_MIGRATION_2;
+import static com.example.schilling.smsweb.sms.sms.Sms.EMPTY_MIGRATION;
+import static com.example.schilling.smsweb.sms.sms.Sms.EMPTY_MIGRATION_2;
 
 public class SMSDBServiceImpl implements SMSDBService {
 
