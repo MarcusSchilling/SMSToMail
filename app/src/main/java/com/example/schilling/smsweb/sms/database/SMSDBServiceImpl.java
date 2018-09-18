@@ -45,6 +45,12 @@ public class SMSDBServiceImpl implements SMSDBService {
     }
 
     @Override
+    public void updateToSend(Sms sms) {
+        sms.set_alreadySendToEmail(true);
+        db.smsDAO().update(sms);
+    }
+
+    @Override
     public List<Sms> getUnsent() {
         return db.smsDAO().getNotSynchronizedSms();
     }

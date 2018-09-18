@@ -26,4 +26,7 @@ public interface SmsDAO {
 
     @Query("Delete from Sms")
     void deleteAll();
+
+    @Update
+    void update(Sms sms);
 }

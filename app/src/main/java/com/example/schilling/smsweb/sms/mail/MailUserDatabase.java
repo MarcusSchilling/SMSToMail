@@ -8,5 +8,4 @@ public abstract class MailUserDatabase extends RoomDatabase {
 
     public abstract MailUserDataDAO mailUserDataDAO();
 
-
 }

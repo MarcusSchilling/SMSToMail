@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import com.example.schilling.smsweb.sms.Sms;
+import com.example.schilling.smsweb.sms.database.SMSDBService;
+import com.example.schilling.smsweb.sms.database.SMSDBServiceImpl;
 import com.example.schilling.smsweb.sms.mail.BackgroundMail;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +17,7 @@ import javax.mail.MessagingException;
 public class BackgroundMailTest {
 
     BackgroundMail backgroundMail;
+    SMSDBService smsdbService;
 
     Context appContext;
 
@@ -23,23 +26,24 @@ public class BackgroundMailTest {
         // Context of the app under test conditions.
         appContext = InstrumentationRegistry.getTargetContext();
         backgroundMail = new BackgroundMail(appContext);
+        smsdbService = SMSDBServiceImpl.getSingleton(appContext, "sms_test");
     }
 
     @Test
     public void test() {
         try {
-            backgroundMail.sendEmail(new Sms.Builder("Hallo")
+            Sms sms = new Sms.Builder("Hallo")
                     .id(1)
-                    .sendToEmail(true)
+                    .sendToEmail(false)
                     .time("20.2.2018")
                     .read("")
                     .folderName("no")
-                    .built());
+                    .built();
+            backgroundMail.sendEmail(sms);
         } catch (MessagingException e) {
             throw new AssertionError("Couldn't send the mail");
         }
     }
-
 
 
 }

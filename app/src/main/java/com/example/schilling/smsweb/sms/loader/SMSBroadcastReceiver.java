@@ -21,7 +21,6 @@ import static com.example.schilling.smsweb.sms.Constants.SMS_INTENT_EXTRA_FLAG;
 
 public class SMSBroadcastReceiver extends BroadcastReceiver implements Runnable{
 
-
     private List<Sms> messages = new ArrayList<>();
     private Context context;
 
@@ -65,6 +64,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver implements Runnable{
 
         SMSDBServiceImpl smsDBService = SMSDBServiceImpl.getSingleton(context, "sms_db");
         smsDBService.insertNew(smsWhichCouldntBeSendToMail);
+        messages.clear();
     }
 
 }

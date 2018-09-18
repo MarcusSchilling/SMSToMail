@@ -37,10 +37,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     def lifecycle_version = "1.1.1"
 
-    // ViewModel and LiveData
+    // Presenter and LiveData
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
 
-    // alternatively - just ViewModel
+    // alternatively - just Presenter
     implementation "android.arch.lifecycle:viewmodel:$lifecycle_version"
 
     // use -ktx for Kotlin
@@ -48,7 +48,7 @@ dependencies {
     // alternatively - just LiveData
     implementation "android.arch.lifecycle:livedata:$lifecycle_version"
 
-    // alternatively - Lifecycles only (no ViewModel or LiveData).
+    // alternatively - Lifecycles only (no Presenter or LiveData).
 
     //     Support library depends on this lightweight import
     implementation "android.arch.lifecycle:runtime:$lifecycle_version"

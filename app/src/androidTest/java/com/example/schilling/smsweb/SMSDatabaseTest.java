@@ -84,6 +84,21 @@ public class SMSDatabaseTest {
         Assert.assertEquals(0, sms_db.smsDAO().getAllSms().size());
     }
 
+    @Test
+    public void testSetToSent() {
+        Builder smsBuilder = new Builder("Hallos ");
+        Sms unsent = smsBuilder.sendToEmail(false).built();
+        savedSms.add(unsent);
+        List<Long> ids = sms_db.smsDAO().insert(savedSms);
+        savedSms.get(0).set_id(ids.get(0));
+        Assert.assertEquals(1, sms_db.smsDAO().getAllSms().size());
+        Assert.assertEquals(1, sms_db.smsDAO().getNotSynchronizedSms().size());
+        unsent.set_alreadySendToEmail(true);
+        sms_db.smsDAO().update(unsent);
+        Assert.assertEquals(1, sms_db.smsDAO().getAllSms().size());
+        Assert.assertEquals(0, sms_db.smsDAO().getNotSynchronizedSms().size());
+    }
+
     /**
      * sorry for the white box testing
      */
@@ -101,6 +116,7 @@ public class SMSDatabaseTest {
     @After
     public void after() {
         sms_db.smsDAO().deleteAll();
+        savedSms.clear();
     }
 
 }

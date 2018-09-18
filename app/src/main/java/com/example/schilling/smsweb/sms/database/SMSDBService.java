@@ -10,4 +10,6 @@ public interface SMSDBService {
 
     List<Sms> getUnsent();
 
+    void updateToSend(Sms sms);
+
 }

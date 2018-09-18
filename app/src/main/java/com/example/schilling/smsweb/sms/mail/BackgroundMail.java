@@ -1,6 +1,5 @@
 package com.example.schilling.smsweb.sms.mail;
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.util.Log;
 import com.example.schilling.smsweb.sms.Sms;
@@ -8,18 +7,16 @@ import com.example.schilling.smsweb.sms.Sms;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Objects;
 import java.util.Properties;
 
 public class BackgroundMail implements BackgroundMailService{
 
-    private final MailUserDatabase db;
 
+    private final MailUserDataService mailUserDataService;
 
     public BackgroundMail(Context appContext) {
-        this.db = Room.databaseBuilder(appContext,
-                MailUserDatabase.class, "mail_user_db")
-                .fallbackToDestructiveMigration()
-                .build();
+        this.mailUserDataService = MailUserDataServiceImpl.getInstance(appContext);
     }
 
     private Message getMessage(Sms sms, MailUserData mailUserData, Session session) throws MessagingException {
@@ -42,15 +39,15 @@ public class BackgroundMail implements BackgroundMailService{
      */
     @Override
     public void sendEmail(Sms sms) throws MessagingException, MailDataNotFoundException {
-        final MailUserData mailUserData = db.mailUserDataDAO().getAllMailUserData();
+        final MailUserData mailUserData = mailUserDataService.getMailUserData();
 
-        //do nothing if there is no profile of the user
+        //does nothing if there is no profile of the user
         if (mailUserData == null) {
             Log.i("send Email: ", "No Userdata for Mail available");
             throw new MailDataNotFoundException("No UserData Available!");
         }
 
-        Properties props = mailUserData.getProperties();
+        Properties props = Objects.requireNonNull(mailUserData).getProperties();
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -59,10 +56,9 @@ public class BackgroundMail implements BackgroundMailService{
             }
         });
 
-        Message message = getMessage(sms, mailUserData, session);
+        Message message = getMessage(sms, Objects.requireNonNull(mailUserData), session);
 
         Log.i("Mail: ", mailUserData.getUsername());
         Transport.send(message);
     }
-
 }
