@@ -10,17 +10,20 @@ public class Presenter {
 
     private final MainView view;
 
+
     /**
      * updates the ui with the saved UserData if available
+     *
      * @param context app context
-     * @param view of the model view presenter design pattern
+     * @param view    of the model view presenter design pattern
      */
     public Presenter(Context context, MainView view) {
-        this.model = new Model(context);
+        this.model = new Model(context, this);
         this.view = view;
-        if (model.getMailUserData() != null) {
-            view.updateUI(model.getMailUserData());
-        }
+    }
+
+    public void updateMailUserData(MailUserData mailUserData) {
+        view.updateUI(mailUserData);
     }
 
     public void changeMailUserData(Editable username, Editable password, Editable smtpHost, Editable port) {

@@ -10,7 +10,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Objects;
 import java.util.Properties;
 
-public class BackgroundMail implements BackgroundMailService{
+public class BackgroundMail implements BackgroundMailService {
 
 
     private final MailUserDataService mailUserDataService;
@@ -34,6 +34,7 @@ public class BackgroundMail implements BackgroundMailService{
 
     /**
      * Sends SMS to MAIL. Does nothing if there are no user data stored.
+     *
      * @param sms which should be send
      * @throws MessagingException false message or failed to send or if no user data were
      */

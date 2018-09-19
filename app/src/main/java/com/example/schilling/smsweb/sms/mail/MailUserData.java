@@ -27,7 +27,7 @@ public class MailUserData {
 
     public Properties getProperties() {
         Properties props = new Properties();
-        props.setProperty("mail.smtp.starttls.enable" , "true");
+        props.setProperty("mail.smtp.starttls.enable", "true");
         props.setProperty("mail.smtp.host", smtpHost);
         props.setProperty("mail.smtp.auth", "true"); // true
         props.setProperty("mail.smtp.port", port + "");

@@ -8,9 +8,21 @@ import android.support.annotation.NonNull;
 import android.telephony.SmsMessage;
 
 @Entity
-public class Sms{
+public class Sms {
 
 
+    public static final Migration EMPTY_MIGRATION = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+
+        }
+    };
+    public static final Migration EMPTY_MIGRATION_2 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+
+        }
+    };
     @PrimaryKey(autoGenerate = true)
     private long _id;
     private String _address;
@@ -19,6 +31,11 @@ public class Sms{
     private String _folderName;
     private String _read;
     private boolean _alreadySendToEmail;
+
+    public Sms(long id) {
+        this._id = id;
+        _alreadySendToEmail = false;
+    }
 
     @NonNull
     public long get_id() {
@@ -61,12 +78,12 @@ public class Sms{
         this._folderName = _folderName;
     }
 
-    public void set_read(String _read) {
-        this._read = _read;
-    }
-
     public String get_read() {
         return _read;
+    }
+
+    public void set_read(String _read) {
+        this._read = _read;
     }
 
     public boolean is_alreadySendToEmail() {
@@ -77,26 +94,7 @@ public class Sms{
         this._alreadySendToEmail = _alreadySendToEmail;
     }
 
-    public Sms(long id){
-        this._id = id;
-        _alreadySendToEmail = false;
-    }
-
-    public static final Migration EMPTY_MIGRATION = new Migration(1, 2) {
-        @Override
-        public void migrate(SupportSQLiteDatabase database) {
-
-        }
-    };
-    public static final Migration EMPTY_MIGRATION_2 = new Migration(2, 3) {
-        @Override
-        public void migrate(SupportSQLiteDatabase database) {
-
-        }
-    };
-
-
-    public static class Builder{
+    public static class Builder {
         private long id;
         private String address;
         private String msg;
@@ -116,6 +114,7 @@ public class Sms{
 
         /**
          * constructor for SmsMessage @{@link SmsMessage}
+         *
          * @param msg which should be converted to @{@link Sms}
          */
         public Builder(SmsMessage msg) {

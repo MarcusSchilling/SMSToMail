@@ -17,7 +17,7 @@ import java.util.List;
 
 import static com.example.schilling.smsweb.sms.Constants.SMS_INTENT_EXTRA_FLAG;
 
-public class SMSBroadcastReceiver extends BroadcastReceiver implements Runnable{
+public class SMSBroadcastReceiver extends BroadcastReceiver implements Runnable {
 
     private List<Sms> messages = new ArrayList<>();
     private Context context;
@@ -51,7 +51,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver implements Runnable{
         BackgroundMail backgroundMail = new BackgroundMail(context);
         List<Sms> smsWhichCouldntBeSendToMail = new ArrayList<>();
         for (Sms message : messages) {
-            try{
+            try {
                 backgroundMail.sendEmail(message);
                 message.set_alreadySendToEmail(true);
             } catch (MessagingException | MailDataNotFoundException e) {
