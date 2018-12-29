@@ -11,4 +11,7 @@ public interface MailUserDataDAO {
     @Update
     void updateMailUserData(MailUserData mailUserData);
 
+    @Insert
+    void saveMailUserData(MailUserData mailUserData);
+
 }

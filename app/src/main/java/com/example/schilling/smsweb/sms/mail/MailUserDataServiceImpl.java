@@ -33,4 +33,9 @@ public class MailUserDataServiceImpl implements MailUserDataService {
     public MailUserData getMailUserData() {
         return db.mailUserDataDAO().getAllMailUserData();
     }
+
+    @Override
+    public void saveMailUserData(MailUserData mailUserData) {
+        db.mailUserDataDAO().saveMailUserData(mailUserData);
+    }
 }

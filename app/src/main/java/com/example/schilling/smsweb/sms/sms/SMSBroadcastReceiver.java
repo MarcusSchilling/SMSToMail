@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
 import android.util.Log;
+
 import com.example.schilling.smsweb.sms.mail.BackgroundMail;
 import com.example.schilling.smsweb.sms.mail.MailDataNotFoundException;
 
-import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.mail.MessagingException;
 
 import static com.example.schilling.smsweb.sms.Constants.SMS_INTENT_EXTRA_FLAG;
 
@@ -35,7 +37,6 @@ public class SMSBroadcastReceiver extends BroadcastReceiver implements Runnable 
                 msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
             }
         }
-
         for (SmsMessage msg : msgs) {
             Log.i("SMS: ", msg.getMessageBody());
             messages.add(new Sms.Builder(msg).built());

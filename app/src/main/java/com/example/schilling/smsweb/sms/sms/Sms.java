@@ -11,6 +11,7 @@ import android.telephony.SmsMessage;
 public class Sms {
 
 
+
     public static final Migration EMPTY_MIGRATION = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {

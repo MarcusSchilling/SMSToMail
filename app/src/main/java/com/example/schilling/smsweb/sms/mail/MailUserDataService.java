@@ -6,4 +6,6 @@ public interface MailUserDataService {
 
     MailUserData getMailUserData();
 
+    void saveMailUserData(MailUserData mailUserData);
+
 }

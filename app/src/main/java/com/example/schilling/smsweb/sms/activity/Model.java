@@ -1,13 +1,19 @@
 package com.example.schilling.smsweb.sms.activity;
 
 import android.content.Context;
-import com.example.schilling.smsweb.sms.mail.*;
+
+import com.example.schilling.smsweb.sms.mail.BackgroundMail;
+import com.example.schilling.smsweb.sms.mail.MailDataNotFoundException;
+import com.example.schilling.smsweb.sms.mail.MailUserData;
+import com.example.schilling.smsweb.sms.mail.MailUserDataService;
+import com.example.schilling.smsweb.sms.mail.MailUserDataServiceImpl;
 import com.example.schilling.smsweb.sms.sms.SMSDBService;
 import com.example.schilling.smsweb.sms.sms.SMSDBServiceImpl;
 import com.example.schilling.smsweb.sms.sms.Sms;
 
-import javax.mail.MessagingException;
 import java.util.List;
+
+import javax.mail.MessagingException;
 
 public class Model {
 
@@ -18,7 +24,6 @@ public class Model {
     private final SMSDBService smsdbService;
 
     private MailUserData mailUserData;
-
 
     private Runnable tryToSyncSmss = new Runnable() {
         @Override
@@ -41,7 +46,9 @@ public class Model {
             @Override
             public void run() {
                 mailUserData = mailUserDataService.getMailUserData();
-                presenter.updateMailUserData(mailUserData);
+                if (mailUserData != null) {
+                    presenter.updateMailUserData(mailUserData);
+                }
             }
         });
         thread.start();
@@ -58,11 +65,16 @@ public class Model {
                 tryToSyncThread.start();
             }
         });
+        thread.start();
     }
 
     private void saveMailUserData(MailUserData mailUserData) {
         this.mailUserData = mailUserData;
-        this.mailUserDataService.changeMailUserData(mailUserData);
+        if (mailUserDataService.getMailUserData() == null) {
+            mailUserDataService.saveMailUserData(mailUserData);
+        } else {
+            this.mailUserDataService.changeMailUserData(mailUserData);
+        }
     }
 
 }

@@ -41,7 +41,7 @@ public class BackgroundMailTest {
                     .built();
             backgroundMail.sendEmail(sms);
         } catch (MessagingException e) {
-            throw new AssertionError("Couldn't send the mail");
+            throw new AssertionError("Couldn't send the mail "+ e.getMessage());
         }
     }
 
