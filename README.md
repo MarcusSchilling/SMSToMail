@@ -1,9 +1,5 @@
 # SMSToMail
-This Application is for synchronizing your sms's with your mail account. Therefore it uses TLS for security purposes.
-
-## Use cases
-For faster IBAN transactions with mTAN.
-
+This application is meant to synchronize your SMS with your e-mail account. Therefore it uses TLS for security purposes.
 
 ## Requirements
 - Android 4.4+ required
