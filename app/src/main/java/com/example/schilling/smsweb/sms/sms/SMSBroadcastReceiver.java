@@ -26,6 +26,13 @@ public class SMSBroadcastReceiver extends BroadcastReceiver implements Runnable 
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if(intent.equals("android.intent.action.BOOT_COMPLETED")) {
+            Log.w("hi","Boot completed");
+            Intent receiverIntent = new Intent(context, SMSBroadcastReceiver.class);
+            context.startService(receiverIntent);
+            return;
+        }
+        Log.w("SMS", "SMS received");
         SmsMessage[] msgs;
         Bundle bundle = intent.getExtras();
         if (Build.VERSION.SDK_INT >= 19) { //KITKAT
@@ -42,7 +49,6 @@ public class SMSBroadcastReceiver extends BroadcastReceiver implements Runnable 
             messages.add(new Sms.Builder(msg).built());
         }
         this.context = context;
-
         Thread thread = new Thread(this);
         thread.start();
     }

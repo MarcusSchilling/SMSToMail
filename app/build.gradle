@@ -80,5 +80,5 @@ dependencies {
     testImplementation "android.arch.persistence.room:testing:$room_version"
 
     // https://mvnrepository.com/artifact/javax.mail/mail
-    compile 'com.sun.mail:android-mail:1.5.5'
+    implementation 'com.sun.mail:android-mail:1.5.5'
 }
